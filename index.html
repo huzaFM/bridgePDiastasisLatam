@@ -313,10 +313,9 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
 		(function () {
 			'use strict';
 			var userAgent = navigator.userAgent || '';
-			var isTikTok = /TikTok|musical\.ly|Bytedance|TTWebView/i.test(userAgent);
+			var isTikTok = /TikTok|musical\.ly|musical_ly|Bytedance(?:Webview)?|ByteLocale|TTWebView/i.test(userAgent);
 			var isAndroid = /Android/i.test(userAgent);
 			var isIOS = /iPad|iPhone|iPod/i.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-			var sessionKey = 'dancefitcouple:tiktok-browser-escape-attempted';
 			var overlay = document.getElementById('tiktok-browser-escape');
 			var message = document.getElementById('tiktok-browser-escape__message');
 			var steps = document.getElementById('tiktok-browser-escape__steps');
@@ -327,10 +326,21 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
 			function getCurrentBridgeUrl() { return window.location.href; }
 			function buildAndroidIntent() {
 				var targetUrl = getCurrentBridgeUrl();
-				var targetWithoutProtocol = targetUrl.replace(/^https?:\/\//i, '').replace('#', '%23');
+				var targetWithoutProtocol = targetUrl.replace(/^https?:\/\//i, '').split('#').join('%23');
 				return 'intent://' + targetWithoutProtocol + '#Intent;scheme=https;S.browser_fallback_url=' + encodeURIComponent(targetUrl) + ';end';
 			}
-			function openAndroidBrowser() { window.location.href = buildAndroidIntent(); }
+			function openAndroidBrowser() {
+				// Called directly by a user tap; timed intent navigations are commonly blocked.
+				window.location.href = buildAndroidIntent();
+			}
+			function isWhatsAppLink(link) {
+				try {
+					var host = new URL(link.href, window.location.href).hostname.toLowerCase();
+					return host === 'wa.link' || host === 'walink.co' || host === 'api.whatsapp.com' || host === 'chat.whatsapp.com' || host === 'web.whatsapp.com';
+				} catch (error) {
+					return false;
+				}
+			}
 			function showOverlay(platform) {
 				overlay.hidden = false;
 				if (platform === 'ios') {
@@ -349,12 +359,14 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
 			if (isIOS) { showOverlay('ios'); return; }
 			if (isAndroid) {
 				showOverlay('android');
-				try {
-					if (sessionStorage.getItem(sessionKey) !== '1') {
-						sessionStorage.setItem(sessionKey, '1');
-						window.setTimeout(openAndroidBrowser, 350);
-					}
-				} catch (error) { /* The manual button remains available. */ }
+				document.addEventListener('click', function (event) {
+					var link = event.target.closest && event.target.closest('a[href]');
+					if (!link || !isWhatsAppLink(link)) { return; }
+					event.preventDefault();
+					event.stopImmediatePropagation();
+					showOverlay('android');
+					button.focus();
+				}, true);
 			}
 		}());
 		</script>
