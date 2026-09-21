@@ -136,8 +136,6 @@ var pysFacebookRest = {"restApiUrl":"https://dancefitcouple.com/wp-json/pys-face
 			#tiktok-browser-escape h2 { margin: 0 0 12px; color: #edf000; font-size: 24px; line-height: 1.2; }
 			#tiktok-browser-escape p { margin: 0 0 16px; font-size: 16px; line-height: 1.5; }
 			#tiktok-browser-escape ol { margin: 0 0 20px; padding-left: 24px; text-align: left; line-height: 1.65; }
-			#tiktok-browser-escape__button { box-sizing: border-box; width: 100%; padding: 14px 16px; border: 0; border-radius: 999px; background: #edf000; color: #111827; font: 700 16px/1.2 Arial, sans-serif; cursor: pointer; }
-			#tiktok-browser-escape__button:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 			#tiktok-browser-escape__note { margin-top: 14px; margin-bottom: 0; font-size: 13px; opacity: .82; }
 		</style>
 		</head>
@@ -179,7 +177,7 @@ var pysFacebookRest = {"restApiUrl":"https://dancefitcouple.com/wp-json/pys-face
 			</div> <!-- .et_pb_text --><div class="et_pb_module et_pb_text et_pb_text_2  et_pb_text_align_left et_pb_bg_layout_light">
 				
 				
-				<div class="et_pb_text_inner"><p style="text-align: center;"><span style="color: #ffffff;">Dime de donde vienes y te daré toda la información </span>💜</p></div>
+				<div class="et_pb_text_inner"><p style="text-align: center;"><span style="color: #ffffff;">Haz clic abajo para descubrir cómo puedes lograrlo paso a paso </span>💜</p></div>
 			</div> <!-- .et_pb_text -->
 			</div> <!-- .et_pb_column -->
 				
@@ -189,14 +187,14 @@ var pysFacebookRest = {"restApiUrl":"https://dancefitcouple.com/wp-json/pys-face
 				
 				
 				<div class="et_pb_button_module_wrapper et_pb_button_0_wrapper et_pb_button_alignment_center et_pb_module ">
-				<a class="et_pb_button et_pb_button_0 et_animated et_pb_bg_layout_dark" href="https://wa.link/zul1o1" target="_blank" rel="noopener">Vengo de Instagram </a>
-			</div><div class="et_pb_button_module_wrapper et_pb_button_1_wrapper et_pb_button_alignment_center et_pb_module ">
+				<a class="et_pb_button et_pb_button_0 et_animated et_pb_bg_layout_dark" href="https://guiasinbarriga.vercel.app/" target="_blank" rel="noopener">QUIERO RECUPERAR MI CORE </a>
+			</div> <!-- <div class="et_pb_button_module_wrapper et_pb_button_1_wrapper et_pb_button_alignment_center et_pb_module ">
 				<a class="et_pb_button et_pb_button_1 et_animated et_pb_bg_layout_dark" href="https://wa.link/yi170a" target="_blank" rel="noopener">Vengo de TikTOk</a>
 			</div><div class="et_pb_button_module_wrapper et_pb_button_2_wrapper et_pb_button_alignment_center et_pb_module ">
 				<a class="et_pb_button et_pb_button_2 et_animated et_pb_bg_layout_dark" href="https://wa.link/p79wj9" target="_blank" rel="noopener">Vengo de Facebook</a>
 			</div><div class="et_pb_button_module_wrapper et_pb_button_3_wrapper et_pb_button_alignment_center et_pb_module ">
 				<a class="et_pb_button et_pb_button_3 et_animated et_pb_bg_layout_dark" href="https://wa.link/blcu6m" target="_blank" rel="noopener">Vengo de Youtube</a>
-			</div>
+			</div> -->
 			</div> <!-- .et_pb_column --><div class="et_pb_column et_pb_column_1_2 et_pb_column_2  et_pb_css_mix_blend_mode_passthrough et-last-child">
 				
 				
@@ -305,7 +303,6 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
 					<li>Toque nos três pontos (<strong>...</strong>) no canto da tela.</li>
 					<li>Escolha <strong>“Abrir no navegador”</strong>.</li>
 				</ol>
-				<button id="tiktok-browser-escape__button" type="button" hidden>Abrir no navegador</button>
 				<p id="tiktok-browser-escape__note"></p>
 			</div>
 		</div>
@@ -319,20 +316,9 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
 			var overlay = document.getElementById('tiktok-browser-escape');
 			var message = document.getElementById('tiktok-browser-escape__message');
 			var steps = document.getElementById('tiktok-browser-escape__steps');
-			var button = document.getElementById('tiktok-browser-escape__button');
 			var note = document.getElementById('tiktok-browser-escape__note');
 
 			function isTikTokWebView() { return isTikTok && (isAndroid || isIOS); }
-			function getCurrentBridgeUrl() { return window.location.href; }
-			function buildAndroidIntent() {
-				var targetUrl = getCurrentBridgeUrl();
-				var targetWithoutProtocol = targetUrl.replace(/^https?:\/\//i, '').split('#').join('%23');
-				return 'intent://' + targetWithoutProtocol + '#Intent;scheme=https;S.browser_fallback_url=' + encodeURIComponent(targetUrl) + ';end';
-			}
-			function openAndroidBrowser() {
-				// Called directly by a user tap; timed intent navigations are commonly blocked.
-				window.location.href = buildAndroidIntent();
-			}
 			function isWhatsAppLink(link) {
 				try {
 					var host = new URL(link.href, window.location.href).hostname.toLowerCase();
@@ -350,8 +336,7 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
 					return;
 				}
 				message.textContent = 'Estamos tentando abrir esta página no navegador do seu celular.';
-				button.hidden = false;
-				button.addEventListener('click', openAndroidBrowser);
+				steps.hidden = false;
 				note.textContent = 'Se nada acontecer, use o menu (...) do TikTok e escolha “Abrir no navegador”.';
 			}
 
@@ -365,7 +350,6 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
 					event.preventDefault();
 					event.stopImmediatePropagation();
 					showOverlay('android');
-					button.focus();
 				}, true);
 			}
 		}());
