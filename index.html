@@ -297,11 +297,11 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
 		<script src='https://img1.wsimg.com/signals/js/clients/tti/tti.min.js' onload="window.tti.calculateTTI()"></script>
 		<div id="tiktok-browser-escape" hidden role="dialog" aria-modal="true" aria-labelledby="tiktok-browser-escape__title">
 			<div id="tiktok-browser-escape__card">
-				<h2 id="tiktok-browser-escape__title">Abra no seu navegador</h2>
+				<h2 id="tiktok-browser-escape__title">🌐 Abre esta página en tu navegador</h2>
 				<p id="tiktok-browser-escape__message"></p>
 				<ol id="tiktok-browser-escape__steps" hidden>
-					<li>Toque nos três pontos (<strong>...</strong>) no canto da tela.</li>
-					<li>Escolha <strong>“Abrir no navegador”</strong>.</li>
+					<li>Toca los tres puntos (<strong>•••</strong>) en la esquina de la pantalla.</li>
+					<li>Selecciona <strong>"Abrir en el navegador"</strong>.</li>
 				</ol>
 				<p id="tiktok-browser-escape__note"></p>
 			</div>
@@ -330,14 +330,14 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
 			function showOverlay(platform) {
 				overlay.hidden = false;
 				if (platform === 'ios') {
-					message.textContent = 'Para continuar, abra esta página no seu navegador.';
+					message.innerHTML = 'Para ver el programa completo necesitas abrirla fuera de TikTok.<br><br>Es rápido, solo 2 pasos:';
 					steps.hidden = false;
-					note.textContent = 'Depois de abrir no navegador, esta página continuará normalmente.';
+					note.textContent = '¡Listo! Podrás acceder a todo 🙌';
 					return;
 				}
-				message.textContent = 'Estamos tentando abrir esta página no navegador do seu celular.';
+				message.innerHTML = 'Para ver el programa completo necesitas abrirla fuera de TikTok.<br><br>Es rápido, solo 2 pasos:';
 				steps.hidden = false;
-				note.textContent = 'Se nada acontecer, use o menu (...) do TikTok e escolha “Abrir no navegador”.';
+				note.textContent = '¡Listo! Podrás acceder a todo 🙌';
 			}
 
 			if (!isTikTokWebView() || !overlay) { return; }
